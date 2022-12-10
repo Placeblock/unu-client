@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Color } from 'src/app/models/card/color.model';
 import { NumberUnUCard } from 'src/app/models/card/number/number-un-ucard.model';
 import { Draw2UnUCard } from 'src/app/models/card/special/draw2-un-ucard.model';
@@ -15,13 +15,19 @@ import { RoomState } from 'src/app/states/room-state.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  LoginState = LoginState;
   faHeart = faHeart
-  name = new UntypedFormControl('');
+  loginForm = this.fb.nonNullable.group({
+    name: ["", [Validators.required, Validators.maxLength(20), Validators.minLength(3)]],
+    gameid: ["", [Validators.required, Validators.maxLength(4), Validators.minLength(4)]]
+  });
   unucard1 = new Draw4UnUCard("");
   unucard2 = new Draw2UnUCard("", Color.BLUE);
   unucard3 = new NumberUnUCard("", 3, Color.RED);
+  loginstate: LoginState = LoginState.Name;
 
-  constructor(private roomState: RoomState, private websocketService: WebsocketService) {}
+  constructor(private roomState: RoomState, private websocketService: WebsocketService, private fb: FormBuilder) {
+  }
 
   getRotation(index: number): number {
     const betweencardsangle = 20;
@@ -29,17 +35,35 @@ export class LoginComponent {
     return (absoluteindexangle - 50)
   }
 
-  login() {
-    this.websocketService.sendMessage("setName", {"name": this.name.value});
-    this.continue();
+  gameidValue(value: string) {
+    this.loginForm.controls.gameid.setValue(value);
+    console.log(value);
   }
 
-  continue() {
-    if (this.roomState.authname != "") {
-      this.websocketService.sendMessage('joinRoom', {"uuid":this.roomState.authname});
-      return;
-    }else {
-      this.websocketService.sendMessage('createRoom', {});
+  setName() {
+    if (this.loginstate === LoginState.Name && this.loginForm.controls.name.valid) {
+      if (this.loginForm.controls.gameid.valid) {
+        this.loginstate = LoginState.Loading
+      } else {
+        this.loginstate = LoginState.Switch
+      }
     }
   }
+
+  joinRoom() {
+    if (this.loginForm.controls.gameid.valid) {
+      this.loginstate = LoginState.Loading;
+    }
+  }
+
+  createRoom() {
+    this.loginstate = LoginState.Loading;
+  }
+}
+
+enum LoginState {
+  Name,
+  Switch,
+  JoinRoom,
+  Loading,
 }

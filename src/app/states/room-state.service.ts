@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Player } from "../models/player";
-import { RoundSettings } from "../models/roundsettings";
+import { getDefaultRoundSettings, RoundSettings } from "../models/roundsettings";
 
 @Injectable({
     providedIn: 'root'
@@ -15,22 +15,21 @@ export class RoomState {
     owner$ = this._owner.asObservable();
     private _name = new BehaviorSubject<string>("");
     name$ = this._name.asObservable();
-    private _authName = new BehaviorSubject<string>("");
-    authName$ = this._authName.asObservable();
     private _isShowingSettings = new BehaviorSubject<boolean>(false);
     isShowingSettings$ = this._isShowingSettings.asObservable();
-    private _settings = new BehaviorSubject<RoundSettings>({
-        "allowdraw2ondraw4":true,
-        "allowdraw4ondraw2":false,
-        "allowdraw4ondraw4":true,
-        "allowdraw4onwish":true,
-        "allowwishondraw4":true,
-        "allowwishonwish":true,
-        "startcardamount":7
-    });
+    private _settings = new BehaviorSubject<RoundSettings>(getDefaultRoundSettings());
     settings$ = this._settings.asObservable();
     private _isRoundRunning = new BehaviorSubject<boolean>(false);
     isRoundRunning$ = this._isRoundRunning.asObservable();
+
+    reset() {
+        this.me = null;
+        this.owner = null;
+        this.players = [];
+        this.name = "";
+        this.isShowingSettings = false;
+        this.settings = getDefaultRoundSettings();
+    }
 
     get players(): Player[] {
         return this._players.getValue();
@@ -70,14 +69,6 @@ export class RoomState {
 
     set name(name: string) {
         this._name.next(name);
-    }
-
-    get authname(): string {
-        return this._authName.getValue();
-    }
-
-    set authname(name: string) {
-        this._authName.next(name);
     }
 
     get settings(): RoundSettings {

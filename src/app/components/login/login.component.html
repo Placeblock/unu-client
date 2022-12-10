@@ -14,15 +14,32 @@
         UNU!
     </div>
 </div>
-<div id="form-container">
-    <input id="name" placeholder="Name" type="text" [formControl]="name">
-    <button (click)="login()">
-        <span>Play</span>
-    </button>
-    <button (click)="continue()">
-        <span>Zufällig</span>
-    </button>
-</div>
+<form [formGroup]="loginForm" id="form-container">
+    <div id="form-input">
+        <div id="name-container" *ngIf="this.loginstate == LoginState.Name">
+            <label for="name">Nickname</label><br>
+            <input id="name" placeholder="Name" type="text" formControlName="name">
+        </div>
+        <div id="gamecode-container" *ngIf="this.loginstate == LoginState.JoinRoom">
+            <label for="gamecode-input">Room-ID</label>
+            <app-gameid-input (value)="this.gameidValue($event)"></app-gameid-input>
+        </div>
+    </div>
+    <div id="form-buttons">
+        <button (click)="this.createRoom()" *ngIf="this.loginstate == LoginState.Switch">
+            <span>Create New Room</span>
+        </button>
+        <button (click)="this.loginstate = LoginState.JoinRoom"  *ngIf="this.loginstate == LoginState.Switch">
+            <span>Join Room</span>
+        </button>
+        <button (click)="this.setName()" *ngIf="this.loginstate == LoginState.Name">
+            <span>Play</span>
+        </button>
+        <button (click)="this.joinRoom()" *ngIf="this.loginstate == LoginState.JoinRoom">
+            <span>Join Room</span>
+        </button>
+    </div>
+</form>
 <div id="credits">
     <p>Created with <fa-icon [icon]="faHeart"></fa-icon> by Placeblock</p>
 </div>

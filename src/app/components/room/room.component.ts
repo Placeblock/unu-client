@@ -26,7 +26,6 @@ export class RoomComponent {
 
   quitRoom() {
     this.webSocketService.sendMessage("quitRoom", {});
-    //TODO: RECEIVE QUIT MESSAGE FROM SERVER AND ROUTE TO LOGIN AND REMOVE ROOM DATA
   }
 
   startRound() {

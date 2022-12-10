@@ -7,3 +7,15 @@ export interface RoundSettings {
     allowdraw4onwish: boolean;
     allowwishonwish: boolean;
 }
+
+export function getDefaultRoundSettings(): RoundSettings {
+    return {
+        "allowdraw2ondraw4":true,
+        "allowdraw4ondraw2":false,
+        "allowdraw4ondraw4":true,
+        "allowdraw4onwish":true,
+        "allowwishondraw4":true,
+        "allowwishonwish":true,
+        "startcardamount":7
+    }
+}

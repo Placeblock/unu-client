@@ -1,4 +1,4 @@
-<fa-icon [icon]="faSignOut" id="signout" tooltip="Leave Room" placement="right" [showDelay]="500" (click)="quitRoom()"></fa-icon>
+<fa-icon [icon]="faSignOut" id="signout" tippy="Leave Room" (click)="quitRoom()"></fa-icon>
 <ng-container *ngIf="roomState.players$ | async as resolved">
     <ng-container *ngIf="roomState.owner$ | async as owner">
         <ng-container *ngIf="roomState.me$ | async as me">

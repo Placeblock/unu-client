@@ -1,7 +1,7 @@
 <app-user-infos></app-user-infos>
 <div id="center-container">
     <div id="cardstack">
-        <div tooltip="Draw Card" placement="top" [showDelay]="100" 
+        <div tippy="Draw Card" placement="top" 
              id="stackcard-container" 
              (click)="drawCard()" 
              *ngFor="let item of [].constructor(5); let i = index"

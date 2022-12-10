@@ -38,11 +38,17 @@ export class WebsocketService {
           if("round" in data["room"]) {
             this.applyRoundData(data["room"]["round"]);
           }
+          console.log("NAVIGATE ROUTER" + data["room"]["name"])
           router.navigate([data["room"]["name"]]);
           break;
         case "playerLeftRoom":
           this.roomState.removePlayer(data["player"]);
           this.roundState.removePlayer(data["player"]);
+          if (this.roomState.me?.uuid === data["player"]["uuid"]) {
+            this.roomState.reset();
+            this.roundState.reset();
+            router.navigate([""])
+          }
           break;
         case "playerJoinedRoom":
           this.roomState.addPlayer(data["player"]);

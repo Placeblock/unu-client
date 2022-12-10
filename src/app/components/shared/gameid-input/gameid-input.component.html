@@ -1,0 +1,6 @@
+<div [formGroup]="gameidForm" id="input-container">
+    <input type="number" formControlName="firstDigit" (keydown)="this.keyHandler($event)" (input)="this.focusHandler($event)" autofocus>
+    <input type="number" formControlName="secondDigit" (keydown)="this.keyHandler($event)" (input)="this.focusHandler($event)">
+    <input type="number" formControlName="thirdDigit" (keydown)="this.keyHandler($event)" (input)="this.focusHandler($event)">
+    <input type="number" formControlName="fourthDigit" (keydown)="this.keyHandler($event)">
+</div>

@@ -38,6 +38,17 @@ export class RoundState {
     private _leaderboard = new BehaviorSubject<Player[]>([]);
     leaderboard$ = this._leaderboard.asObservable();
 
+    reset() {
+        this.players = []
+        this.currentplayer = null;
+        this.inventorys = new Map;
+        this.forcedcolor = null;
+        this.showforcecolor = false;
+        this.drawqueue = 0;
+        this.nextTimer = 0;
+        this.leaderboard = [];
+    }
+
     get leaderboard(): Player[] {
         return this._leaderboard.getValue();
     }

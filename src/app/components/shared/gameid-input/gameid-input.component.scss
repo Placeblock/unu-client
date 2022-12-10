@@ -1,0 +1,25 @@
+:host {
+    display: flex;
+    gap: 5px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+input {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    -moz-appearance: textfield;
+    width: 3rem;
+    text-align: center;
+}
+
+#input-container {
+    display: flex;
+    gap: 5px;
+}
+
+.ng-invalid {
+    border: 1px solid red;
+}

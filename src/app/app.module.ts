@@ -16,7 +16,6 @@ import { RoundComponent } from './components/round/round.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RoomComponent } from './components/room/room.component';
 import { NgParticlesModule } from "ng-particles";
-import { TooltipModule } from 'ng2-tooltip-directive';
 import { RoundSettingsComponent } from './components/room/roundsettings/roundsettings.component';
 import { SwitchComponent } from './components/shared/switch/switch.component';
 import { CounterInputComponent } from './components/shared/counter-input/counter-input.component';
@@ -24,6 +23,9 @@ import { PlayerlistComponent } from './components/shared/playerlist/playerlist.c
 import { PlayerlistitemComponent } from './components/shared/playerlistitem/playerlistitem.component';
 import { GameComponent } from './components/game/game.component';
 import { NextTimerComponent } from './components/round/next-timer/next-timer.component';
+import { provideTippyConfig, tooltipVariation, popperVariation, TippyDirective } from '@ngneat/helipopper';
+import { GameidInputComponent } from './components/shared/gameid-input/gameid-input.component';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { NextTimerComponent } from './components/round/next-timer/next-timer.com
     PlayerlistComponent,
     PlayerlistitemComponent,
     GameComponent,
-    NextTimerComponent
+    NextTimerComponent,
+    GameidInputComponent
   ],
   imports: [
     BrowserModule,
@@ -52,9 +55,17 @@ import { NextTimerComponent } from './components/round/next-timer/next-timer.com
     FontAwesomeModule,
     ReactiveFormsModule,
     NgParticlesModule,
-    TooltipModule
+    TippyDirective
   ],
-  providers: [],
+  providers: [    
+    provideTippyConfig({
+      defaultVariation: 'tooltip',
+      variations: {
+        tooltip: {...tooltipVariation, "delay":500},
+        popper: popperVariation,
+      }
+    })
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

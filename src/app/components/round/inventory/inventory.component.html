@@ -12,14 +12,12 @@
             </div>
         </ng-container>
         <div class="controls">
-            <fa-icon (click)="inventorys.get(me.uuid)?.sort()" tooltip="Sort Inventory" placement="top" [showDelay]="100" [icon]="faSort" style="color: rgb(130, 130, 255);"></fa-icon>
+            <fa-icon (click)="inventorys.get(me.uuid)?.sort()" tippy="Sort Inventory" [icon]="faSort" style="color: rgb(130, 130, 255);"></fa-icon>
             <fa-icon (click)="endTurn()" *ngIf="(this.roundState.currentplayer$ | async)?.uuid == me.uuid" 
-                     tooltip="End Turn" 
-                     placement="top" 
-                     [showDelay]="100" 
+                    tippy="End Turn" 
                      [icon]="faCheck" 
                      style="color: green;"></fa-icon>
-            <fa-icon (click)="sayUnu()" tooltip="UNU!" placement="top" [showDelay]="100" [icon]="faBullhorn" style="color: red;"></fa-icon>
+            <fa-icon (click)="sayUnu()" tippy="UNU!" [icon]="faBullhorn" style="color: red;"></fa-icon>
         </div>
     </ng-container>
 </ng-container>
