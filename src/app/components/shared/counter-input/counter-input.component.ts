@@ -1,8 +1,8 @@
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export function createCounterRangeValidator(maxValue: number, minValue: number) {
-  return function validateCounterRange(c: FormControl) {
+  return function validateCounterRange(c: UntypedFormControl) {
     let err = {
       rangeError: {
         given: c.value,

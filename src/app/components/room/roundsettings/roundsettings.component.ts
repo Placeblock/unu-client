@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { RoomState } from 'src/app/states/room-state.service';
 
@@ -9,13 +9,13 @@ import { RoomState } from 'src/app/states/room-state.service';
   styleUrls: ['./roundsettings.component.scss']
 })
 export class RoundSettingsComponent {
-  fouronfour = new FormControl(this.roomState.settings.allowdraw4ondraw4);
-  twoonfour = new FormControl(this.roomState.settings.allowdraw2ondraw4);
-  fourontwo = new FormControl(this.roomState.settings.allowdraw4ondraw2);
-  wishonfour = new FormControl(this.roomState.settings.allowwishondraw4);
-  fouronwish = new FormControl(this.roomState.settings.allowdraw4onwish);
-  wishonwish = new FormControl(this.roomState.settings.allowwishonwish);
-  startcards = new FormControl(this.roomState.settings.startcardamount);
+  fouronfour = new UntypedFormControl(this.roomState.settings.allowdraw4ondraw4);
+  twoonfour = new UntypedFormControl(this.roomState.settings.allowdraw2ondraw4);
+  fourontwo = new UntypedFormControl(this.roomState.settings.allowdraw4ondraw2);
+  wishonfour = new UntypedFormControl(this.roomState.settings.allowwishondraw4);
+  fouronwish = new UntypedFormControl(this.roomState.settings.allowdraw4onwish);
+  wishonwish = new UntypedFormControl(this.roomState.settings.allowwishonwish);
+  startcards = new UntypedFormControl(this.roomState.settings.startcardamount);
 
   constructor(private webSocketService: WebsocketService, private roomState: RoomState) {}
 

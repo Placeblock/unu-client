@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Color } from 'src/app/models/card/color.model';
 import { NumberUnUCard } from 'src/app/models/card/number/number-un-ucard.model';
 import { Draw2UnUCard } from 'src/app/models/card/special/draw2-un-ucard.model';
@@ -16,7 +16,7 @@ import { RoomState } from 'src/app/states/room-state.service';
 })
 export class LoginComponent {
   faHeart = faHeart
-  name = new FormControl('');
+  name = new UntypedFormControl('');
   unucard1 = new Draw4UnUCard("");
   unucard2 = new Draw2UnUCard("", Color.BLUE);
   unucard3 = new NumberUnUCard("", 3, Color.RED);
