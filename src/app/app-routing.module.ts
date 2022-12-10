@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { GameComponent } from './components/game/game.component';
 import { LoginComponent } from './components/login/login.component';
 import { GameGuardGuard } from './guards/game-guard.guard';
-import { PlayerGuard } from './guards/player.guard';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent, pathMatch: 'full'},
-  { path: ':gameid', component: GameComponent, canActivate: [GameGuardGuard, PlayerGuard]},
-  { path: '**', redirectTo: ''}
+  { path: 'join', component: LoginComponent, pathMatch: 'full'},
+  { path: 'join/:roomid', component: LoginComponent},
+  { path: ':roomid', component: GameComponent, canActivate: [GameGuardGuard]},
+  { path: '**', redirectTo: 'join'}
 ];
 
 @NgModule({

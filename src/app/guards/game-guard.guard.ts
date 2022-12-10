@@ -11,9 +11,14 @@ export class GameGuardGuard implements CanActivate {
 
   canActivate(
     route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const gameid = route.paramMap.get("gameid");
-    if(gameid != null) {
-      this.roomState.name = gameid;
+    const gameid = route.paramMap.get("roomid");
+    console.log(gameid);
+    console.log(this.roomState.me);
+    console.log(this.roomState.name);
+    if(gameid != null && this.roomState.me == null && this.roomState.name == "") {
+      console.log("REDIRECT");
+      this.router.navigate(["", {queryParams: {"roomid": gameid}}]);
+      return false;
     }
     return true;
   }

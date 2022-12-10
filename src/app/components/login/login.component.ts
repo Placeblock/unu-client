@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Color } from 'src/app/models/card/color.model';
 import { NumberUnUCard } from 'src/app/models/card/number/number-un-ucard.model';
@@ -7,6 +7,7 @@ import { Draw4UnUCard } from 'src/app/models/card/special/draw4-un-ucard.model';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { RoomState } from 'src/app/states/room-state.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { RoomState } from 'src/app/states/room-state.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   LoginState = LoginState;
   faHeart = faHeart
   loginForm = this.fb.nonNullable.group({
@@ -26,7 +27,16 @@ export class LoginComponent {
   unucard3 = new NumberUnUCard("", 3, Color.RED);
   loginstate: LoginState = LoginState.Name;
 
-  constructor(private roomState: RoomState, private websocketService: WebsocketService, private fb: FormBuilder) {
+  constructor(private route: ActivatedRoute, private websocketService: WebsocketService, private fb: FormBuilder) {
+  }
+
+  ngOnInit(): void {
+    this.route.params.forEach((params: Params) => {
+      console.log(params);
+      if (params["roomid"] !== "") {
+        this.loginForm.controls.gameid.setValue(params["roomid"]);
+      }
+    });
   }
 
   getRotation(index: number): number {
@@ -53,10 +63,14 @@ export class LoginComponent {
   joinRoom() {
     if (this.loginForm.controls.gameid.valid) {
       this.loginstate = LoginState.Loading;
+      let value = this.loginForm.value;
+      this.websocketService.sendMessage('joinRoom', {"id":value.gameid,"name":value.name});
     }
   }
 
   createRoom() {
+    this.websocketService.sendMessage('createRoom', {"name":this.loginForm.value.name});
+
     this.loginstate = LoginState.Loading;
   }
 }

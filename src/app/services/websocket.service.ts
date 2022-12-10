@@ -26,14 +26,12 @@ export class WebsocketService {
     this.subject$.subscribe((data) => {
       console.log(data);
       switch (data["action"]) {
-        case "playerData":
-          this.roomState.me = data["player"];
-          break;
         case "joinedRoom":
           this.roomState.name = data["room"]["name"];
           this.roomState.owner = data["room"]["owner"];
           this.roomState.settings = data["room"]["settings"];
           this.roomState.players = data["room"]["players"];
+          this.roomState.me = data["me"];
           this.roomState.isShowingSettings = false;
           if("round" in data["room"]) {
             this.applyRoundData(data["room"]["round"]);
