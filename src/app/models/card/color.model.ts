@@ -4,6 +4,7 @@ export class Color {
     public static readonly GREEN = new Color("GREEN","#32ba4d",30);
     public static readonly YELLOW = new Color("YELLOW","#ebeb00",45);
     public static readonly WHITE = new Color("WHITE","#ffffff", 0);
+    public static readonly BLACK = new Color("BLACK","#000000", 0);
 
     private constructor(public readonly variable: string, public readonly colorcode: string, public readonly weight: number) {}
 

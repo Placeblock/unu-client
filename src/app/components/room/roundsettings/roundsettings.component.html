@@ -1,4 +1,7 @@
-<p id="header">Runden Einstellungen:</p>
+<div id="nav">
+    <p id="header">Runden Einstellungen:</p>
+    <fa-icon [icon]="faTimes" (click)="this.close.emit()"></fa-icon>
+</div>
 <div class="settings-item">
     <p>Startcards</p>
     <app-counter-input [_counterValue]="7" [counterRangeMax]="500" [counterRangeMin]="2" [formControl]="startcards" (ngModelChange)="update()"></app-counter-input>

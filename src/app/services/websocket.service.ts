@@ -27,7 +27,8 @@ export class WebsocketService {
       console.log(data);
       switch (data["action"]) {
         case "joinedRoom":
-          this.roomState.name = data["room"]["name"];
+          this.roomState.invalid = false;
+          this.roomState.id = data["room"]["id"];
           this.roomState.owner = data["room"]["owner"];
           this.roomState.settings = data["room"]["settings"];
           this.roomState.players = data["room"]["players"];
@@ -36,8 +37,8 @@ export class WebsocketService {
           if("round" in data["room"]) {
             this.applyRoundData(data["room"]["round"]);
           }
-          console.log("NAVIGATE ROUTER" + data["room"]["name"])
-          router.navigate([data["room"]["name"]]);
+          console.log("NAVIGATE ROUTER" + data["room"]["id"])
+          router.navigate([data["room"]["id"]]);
           break;
         case "playerLeftRoom":
           this.roomState.removePlayer(data["player"]);
@@ -110,6 +111,9 @@ export class WebsocketService {
         case "finishRound":
           this.roomState.roundRunning = false;
           break
+        case "invalidJoinRoom":
+          this.roomState.invalid = true;
+          break;
         default:
           break;
       }

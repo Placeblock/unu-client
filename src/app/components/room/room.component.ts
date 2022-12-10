@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { faEthereum } from '@fortawesome/free-brands-svg-icons';
-import { faCogs, faMedal, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCogs, faCopy, faMedal, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { RoomState } from 'src/app/states/room-state.service';
 
@@ -16,6 +16,7 @@ export class RoomComponent {
   faSignOut = faSignOutAlt;
   faUser = faUser;
   faCogs = faCogs;
+  faCopy = faCopy;
 
   constructor(public roomState: RoomState, public webSocketService: WebsocketService) {}
 
@@ -30,6 +31,10 @@ export class RoomComponent {
 
   startRound() {
     this.webSocketService.sendMessage("startRound", {});
+  }
+
+  copyRoomID() {
+    navigator.clipboard.writeText(this.roomState.id);
   }
 
 

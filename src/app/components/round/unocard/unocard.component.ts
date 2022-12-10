@@ -58,6 +58,8 @@ export class UnocardComponent {
     return "white";
   }
   @Input() unucard!: UnUCard;
+  @Input() showRing: boolean = true;
+  @Input() showSmallNumbers: Boolean = true;
 
   
   @HostBinding('@flip') @Input() side: string = 'front';

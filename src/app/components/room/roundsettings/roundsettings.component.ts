@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import { faCross, faTimes} from '@fortawesome/free-solid-svg-icons';
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { RoomState } from 'src/app/states/room-state.service';
 
@@ -9,6 +10,7 @@ import { RoomState } from 'src/app/states/room-state.service';
   styleUrls: ['./roundsettings.component.scss']
 })
 export class RoundSettingsComponent {
+  faTimes = faTimes;
   fouronfour = new UntypedFormControl(this.roomState.settings.allowdraw4ondraw4);
   twoonfour = new UntypedFormControl(this.roomState.settings.allowdraw2ondraw4);
   fourontwo = new UntypedFormControl(this.roomState.settings.allowdraw4ondraw2);
@@ -16,6 +18,7 @@ export class RoundSettingsComponent {
   fouronwish = new UntypedFormControl(this.roomState.settings.allowdraw4onwish);
   wishonwish = new UntypedFormControl(this.roomState.settings.allowwishonwish);
   startcards = new UntypedFormControl(this.roomState.settings.startcardamount);
+  @Output("close") close = new EventEmitter<void>(false);
 
   constructor(private webSocketService: WebsocketService, private roomState: RoomState) {}
 

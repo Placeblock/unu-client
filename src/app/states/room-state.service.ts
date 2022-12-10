@@ -7,14 +7,16 @@ import { getDefaultRoundSettings, RoundSettings } from "../models/roundsettings"
     providedIn: 'root'
 })
 export class RoomState {
+    private _invalid = new BehaviorSubject<boolean>(false);
+    invalid$ = this._invalid.asObservable();
     private _players = new BehaviorSubject<Player[]>([]);
     players$ = this._players.asObservable();
     private _me = new BehaviorSubject<Player | null>(null);
     me$ = this._me.asObservable();
     private _owner = new BehaviorSubject<Player | null>(null);
     owner$ = this._owner.asObservable();
-    private _name = new BehaviorSubject<string>("");
-    name$ = this._name.asObservable();
+    private _id = new BehaviorSubject<string>("");
+    id$ = this._id.asObservable();
     private _isShowingSettings = new BehaviorSubject<boolean>(false);
     isShowingSettings$ = this._isShowingSettings.asObservable();
     private _settings = new BehaviorSubject<RoundSettings>(getDefaultRoundSettings());
@@ -26,9 +28,17 @@ export class RoomState {
         this.me = null;
         this.owner = null;
         this.players = [];
-        this.name = "";
+        this.id = "";
         this.isShowingSettings = false;
         this.settings = getDefaultRoundSettings();
+    }
+
+    get invalid(): boolean {
+        return this._invalid.getValue();
+    }
+
+    set invalid(invalid: boolean) {
+        this._invalid.next(invalid);   
     }
 
     get players(): Player[] {
@@ -63,12 +73,12 @@ export class RoomState {
         this.players = this.players.filter(value => value.uuid != player.uuid);
     }
 
-    get name(): string {
-        return this._name.getValue();
+    get id(): string {
+        return this._id.getValue();
     }
 
-    set name(name: string) {
-        this._name.next(name);
+    set id(id: string) {
+        this._id.next(id);
     }
 
     get settings(): RoundSettings {

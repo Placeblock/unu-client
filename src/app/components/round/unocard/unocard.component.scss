@@ -11,7 +11,7 @@
     transform-style: preserve-3d;
     box-shadow: 0px 0px 10px black;
 }
-:host::before, .back::before {
+.front.ring::before, .back.ring::before {
     position: absolute;
     content: '';
     width: 85%;

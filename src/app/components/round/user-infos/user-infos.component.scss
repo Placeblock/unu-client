@@ -11,6 +11,3 @@
 :host app-user-info {
     margin: 20px;
 }
-:host app-user-info::ng-deep .cards {
-    transform: rotate(180deg);
-}

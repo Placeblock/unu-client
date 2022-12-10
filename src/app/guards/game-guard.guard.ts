@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RoomState } from '../states/room-state.service';
 
@@ -14,10 +14,10 @@ export class GameGuardGuard implements CanActivate {
     const gameid = route.paramMap.get("roomid");
     console.log(gameid);
     console.log(this.roomState.me);
-    console.log(this.roomState.name);
-    if(gameid != null && this.roomState.me == null && this.roomState.name == "") {
+    console.log(this.roomState.id);
+    if(gameid != null && this.roomState.me == null && this.roomState.id == "") {
       console.log("REDIRECT");
-      this.router.navigate(["", {queryParams: {"roomid": gameid}}]);
+      this.router.navigate(["join", gameid]);
       return false;
     }
     return true;

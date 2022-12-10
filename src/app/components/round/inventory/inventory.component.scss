@@ -33,15 +33,22 @@
     align-items: center;
     background-color: rgb(17, 17, 17);
 }
-:host .card-container {
+
+.card-container {
     position: absolute;
     transform-origin: bottom center;
     transition: transform .5s ease-in-out, left .5s ease-in-out, top .5s ease-in-out;
 }
-:host .card-container app-unocard {
+
+.card-container app-unocard {
     transition: transform 0.1s ease-in-out;
 }
-:host .interactable:hover app-unocard {
+
+.card-container:not(.interactable) {
+    filter: grayscale(80%);
+}
+
+.interactable:hover app-unocard {
     transform: translateY(-50px) !important;
     cursor: pointer;
 }

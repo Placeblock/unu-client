@@ -15,6 +15,10 @@
     </div>
 </div>
 <form [formGroup]="loginForm" id="form-container">
+    <div id="loading-container" *ngIf="this.loginstate == LoginState.Loading">
+        <h1 *ngIf="!(this.roomState.invalid$ | async)">Joining Room...</h1>
+        <h1 *ngIf="this.roomState.invalid$ | async">Invalid Room-ID</h1>
+    </div>
     <div id="form-input">
         <div id="name-container" *ngIf="this.loginstate == LoginState.Name">
             <label for="name">Nickname</label><br>
@@ -26,17 +30,20 @@
         </div>
     </div>
     <div id="form-buttons">
-        <button (click)="this.createRoom()" *ngIf="this.loginstate == LoginState.Switch">
+        <button class="button" (click)="this.createRoom()" *ngIf="this.loginstate == LoginState.Switch">
             <span>Create New Room</span>
         </button>
-        <button (click)="this.loginstate = LoginState.JoinRoom"  *ngIf="this.loginstate == LoginState.Switch">
+        <button class="button" (click)="this.loginstate = LoginState.JoinRoom"  *ngIf="this.loginstate == LoginState.Switch">
             <span>Join Room</span>
         </button>
-        <button (click)="this.setName()" *ngIf="this.loginstate == LoginState.Name">
+        <button class="button" (click)="this.setName()" *ngIf="this.loginstate == LoginState.Name">
             <span>Play</span>
         </button>
-        <button (click)="this.joinRoom()" *ngIf="this.loginstate == LoginState.JoinRoom">
+        <button class="button" (click)="this.joinRoom()" *ngIf="this.loginstate == LoginState.JoinRoom">
             <span>Join Room</span>
+        </button>
+        <button class="button" (click)="this.back()" *ngIf="(this.roomState.invalid$ | async) || this.loginstate == LoginState.JoinRoom">
+            <span>Back</span>
         </button>
     </div>
 </form>

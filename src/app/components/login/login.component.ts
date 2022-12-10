@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit{
   unucard3 = new NumberUnUCard("", 3, Color.RED);
   loginstate: LoginState = LoginState.Name;
 
-  constructor(private route: ActivatedRoute, private websocketService: WebsocketService, private fb: FormBuilder) {
+  constructor(private route: ActivatedRoute, private websocketService: WebsocketService, private fb: FormBuilder, public roomState: RoomState) {
   }
 
   ngOnInit(): void {
@@ -53,9 +53,9 @@ export class LoginComponent implements OnInit{
   setName() {
     if (this.loginstate === LoginState.Name && this.loginForm.controls.name.valid) {
       if (this.loginForm.controls.gameid.valid) {
-        this.loginstate = LoginState.Loading
+        this.joinRoom();
       } else {
-        this.loginstate = LoginState.Switch
+        this.loginstate = LoginState.Switch;
       }
     }
   }
@@ -64,14 +64,19 @@ export class LoginComponent implements OnInit{
     if (this.loginForm.controls.gameid.valid) {
       this.loginstate = LoginState.Loading;
       let value = this.loginForm.value;
-      this.websocketService.sendMessage('joinRoom', {"id":value.gameid,"name":value.name});
+      console.log({"id":value.gameid, "player_name":this.loginForm.value.name});
+      this.websocketService.sendMessage('joinRoom', {"id":value.gameid, "player_name":this.loginForm.value.name});
     }
   }
 
   createRoom() {
-    this.websocketService.sendMessage('createRoom', {"name":this.loginForm.value.name});
-
+    this.websocketService.sendMessage('createRoom', {"player_name":this.loginForm.value.name});
     this.loginstate = LoginState.Loading;
+  }
+
+  back() {
+    this.loginstate = LoginState.Switch;
+    this.roomState.invalid = false;
   }
 }
 
