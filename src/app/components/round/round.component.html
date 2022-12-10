@@ -1,0 +1,32 @@
+<app-user-infos></app-user-infos>
+<div id="center-container">
+    <div id="cardstack">
+        <div tooltip="Draw Card" placement="top" [showDelay]="100" 
+             id="stackcard-container" 
+             (click)="drawCard()" 
+             *ngFor="let item of [].constructor(5); let i = index"
+             [ngClass]="{'hoverable': (roomState.me$ | async)?.uuid == (this.roundState.currentplayer$ | async)?.uuid}">
+            <app-unocard [unucard]="this.stackCard" [side]="'back'"></app-unocard>
+        </div>
+    </div>
+    <ng-container *ngIf="roundState.currentcard$ | async as currentcard">
+        <div id="currentcard-container">
+            <app-unocard [unucard]="currentcard"></app-unocard>
+            <ng-container *ngIf="roundState.drawqueue$ | async as drawqueue">
+                <p id="drawqueue-container" *ngIf="drawqueue > 0">{{drawqueue}}</p>
+            </ng-container>
+        </div>
+    </ng-container>
+</div>
+<app-inventory></app-inventory>
+<div id="forcecolorselect" *ngIf="roundState.showforcecolorselect$ | async">
+    <div class="forcecolorrow">
+        <div id="red" [ngStyle]="{'background-color':Color.RED.colorcode}" (click)="forceColorSelect(Color.RED)"></div>
+        <div id="blue" [ngStyle]="{'background-color':Color.BLUE.colorcode}" (click)="forceColorSelect(Color.BLUE)"></div>
+    </div>
+    <div class="forcecolorrow">
+        <div id="green" [ngStyle]="{'background-color':Color.GREEN.colorcode}" (click)="forceColorSelect(Color.GREEN)"></div>
+        <div id="yellow" [ngStyle]="{'background-color':Color.YELLOW.colorcode}" (click)="forceColorSelect(Color.YELLOW)"></div>
+    </div>
+</div>
+<app-next-timer></app-next-timer>

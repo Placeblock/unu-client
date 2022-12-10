@@ -1,0 +1,10 @@
+<div id="playerlist-content">
+    <div class="playeritem" *ngFor="let player of this.players; let index=index;">
+        <app-playerlistitem
+            [name]="player.name"
+            [owner]="player.uuid == this.owner.uuid" 
+            [me]="player.uuid == this.me.uuid" 
+            [ranking]="index">
+        </app-playerlistitem>
+    </div>
+</div>
